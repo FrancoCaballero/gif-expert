@@ -1,4 +1,5 @@
 import { shallow } from "enzyme";
+import "@testing-library/jest-dom";
 import { GifGrid } from "../../components/GifGrid";
 import { useFetchGifs } from "../../hooks/useFetchGifs";
 jest.mock("../../hooks/useFetchGifs");
@@ -23,6 +24,11 @@ describe("probando componente GifGrid", () => {
         url: "https://localhost/prueba/prueba.jpg",
         title: "prueba",
       },
+      {
+        id: "123",
+        url: "https://localhost/prueba/prueba.jpg",
+        title: "prueba",
+      },
     ];
 
     useFetchGifs.mockReturnValue({
@@ -32,6 +38,8 @@ describe("probando componente GifGrid", () => {
 
     const wrapper = shallow(<GifGrid category={category} />);
 
-    expect(wrapper).toMatchSnapshot();
+    // expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find("p").exists()).toBe(false);
+    expect(wrapper.find("GifGridItem").length).toBe(gifs.length);
   });
 });
